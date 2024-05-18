@@ -1,6 +1,8 @@
 plugins {
+    id("kotlin-kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -44,6 +46,8 @@ composeCompiler {
 }
 
 dependencies {
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.compiler)
 
     // Jetpack Compose Libraries
     implementation(platform(libs.compose.bom))
@@ -65,7 +69,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    // Compose Tests
+    androidTestImplementation(libs.compose.test.ui)
+    debugImplementation(libs.compose.test.ui.manifest)
+    androidTestImplementation(platform(libs.compose.bom))
 }
