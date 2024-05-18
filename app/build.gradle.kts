@@ -33,9 +33,34 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.13"
+    }
 }
 
 dependencies {
+
+    // Jetpack Compose Libraries
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.material3)
+
+    // Android Studio Preview support
+    implementation(libs.compose.ui.tooling)
+    debugImplementation(libs.compose.ui.tooling.preview)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.viewmodel)
+
+    // Compose Tests
+    androidTestImplementation(libs.compose.test.ui)
+    debugImplementation(libs.compose.test.ui.manifest)
+    androidTestImplementation(platform(libs.compose.bom))
+
+
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
