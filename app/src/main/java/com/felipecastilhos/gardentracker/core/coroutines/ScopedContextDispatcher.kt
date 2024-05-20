@@ -13,5 +13,5 @@ class ScopedContextDispatcher(
     val main: CoroutineContext
         get() = scope.coroutineContext + dispatcherProvider.main
     val io: CoroutineContext
-        get() = scope.coroutineContext + dispatcherProvider.io
+        get() = scope.coroutineContext + dispatcherProvider.IO
 }

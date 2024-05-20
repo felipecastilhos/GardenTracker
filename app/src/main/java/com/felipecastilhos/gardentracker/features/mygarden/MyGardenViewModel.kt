@@ -1,7 +1,7 @@
 package com.felipecastilhos.gardentracker.features.mygarden
 
-import com.felipecastilhos.gardentracker.BaseViewModel
 import com.felipecastilhos.gardentracker.core.coroutines.CoroutineContextProvider
+import com.felipecastilhos.gardentracker.core.viewmodels.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,5 +37,4 @@ class MyGardenViewModel @Inject constructor(
             _viewState.value = newMessage
         }
     }
-
 }

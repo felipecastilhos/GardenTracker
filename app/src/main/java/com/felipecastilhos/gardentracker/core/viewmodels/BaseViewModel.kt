@@ -1,4 +1,4 @@
-package com.felipecastilhos.gardentracker
+package com.felipecastilhos.gardentracker.core.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.felipecastilhos.gardentracker.core.coroutines.CoroutineContextProvider
@@ -13,7 +13,7 @@ open class BaseViewModel(
     override val coroutineContext: CoroutineContext = dispatcherProvider.main
 
     protected fun launchOnIO(block: suspend CoroutineScope.() -> Unit) {
-        launch(dispatcherProvider.io) {
+        launch(dispatcherProvider.IO) {
             block()
         }
     }
