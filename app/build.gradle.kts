@@ -46,6 +46,7 @@ composeCompiler {
 }
 
 dependencies {
+    // Hilt Library
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.compiler)
 
@@ -64,17 +65,22 @@ dependencies {
     debugImplementation(libs.compose.test.ui.manifest)
     androidTestImplementation(platform(libs.compose.bom))
 
+    // AndroidX Libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    // Unit Tests
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Instrumentation Tests
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    // Compose Tests
     androidTestImplementation(libs.compose.test.ui)
-    debugImplementation(libs.compose.test.ui.manifest)
     androidTestImplementation(platform(libs.compose.bom))
+    debugImplementation(libs.compose.test.ui.manifest)
 }
