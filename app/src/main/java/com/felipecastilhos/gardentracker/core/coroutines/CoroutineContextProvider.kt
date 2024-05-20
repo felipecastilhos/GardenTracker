@@ -33,11 +33,11 @@ interface CoroutineContextProvider {
     | - Networking                      |
     +-----------------------------------+
      */
-    val io: CoroutineDispatcher
+    val IO: CoroutineDispatcher
 }
 
 @Singleton
 class DefaultCoroutineContextProvider @Inject constructor() : CoroutineContextProvider {
     override val main: CoroutineDispatcher = Dispatchers.Main
-    override val io: CoroutineDispatcher =  Dispatchers.IO
+    override val IO: CoroutineDispatcher =  Dispatchers.IO
 }
