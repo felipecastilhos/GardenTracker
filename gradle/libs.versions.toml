@@ -1,6 +1,6 @@
 [versions]
-agp = "8.4.0"
-kotlin = "1.9.23"
+agp = "8.4.1"
+kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -31,8 +31,8 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-test-ui = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 compose-test-ui-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
