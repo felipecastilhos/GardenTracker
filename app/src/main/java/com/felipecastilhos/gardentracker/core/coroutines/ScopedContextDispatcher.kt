@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlin.coroutines.CoroutineContext
 
 /**
- * Add dispatcher provide in a context
+ * Add dispatcher provided in a context
  */
 class ScopedContextDispatcher(
     val scope: CoroutineScope,
