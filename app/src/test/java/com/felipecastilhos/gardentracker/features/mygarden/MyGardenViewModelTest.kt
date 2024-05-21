@@ -1,20 +1,19 @@
 package com.felipecastilhos.gardentracker.features.mygarden
 
-
+import app.cash.turbine.test
+import com.felipecastilhos.gardentracker.SuspendingTest
 import com.felipecastilhos.gardentracker.core.coroutines.CoroutineContextProvider
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import io.mockk.verify
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-class MyGardenViewModelTest {
+internal class MyGardenViewModelTest : SuspendingTest() {
     @MockK
     lateinit var coroutineContextProvider: CoroutineContextProvider
 
@@ -31,8 +30,16 @@ class MyGardenViewModelTest {
     }
 
     @Test
-    fun `test getMessage`(): Unit = runTest {
-        val message = viewModel.viewState.first()
-        assertEquals("Loading", message)
+    fun `start viewmodel with loading state`() {
+        assertEquals("Loading", viewModel.viewState.value)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `fetch a new message`(): Unit = runTest {
+        viewModel.viewState.test {
+            assertEquals("Loading", awaitItem())
+            assertEquals("My Garden", awaitItem())
+        }
     }
 }
