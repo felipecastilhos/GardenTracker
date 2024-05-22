@@ -1,15 +1,12 @@
 package com.felipecastilhos.gardentracker.features.mygarden
 
-import androidx.lifecycle.viewModelScope
 import com.felipecastilhos.gardentracker.core.coroutines.CoroutineContextProvider
 import com.felipecastilhos.gardentracker.core.viewmodels.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,14 +24,14 @@ class MyGardenViewModel @Inject constructor(
     }
 
     private fun getMessage() {
-         viewModelScope.launch {
-             delay(800)
+        launchOnIO {
+            delay(800)
             _viewState.value = message
         }
     }
 
     fun updateMessage(newMessage: String) {
-        launch {
+        launchOnMain {
             _viewState.value = newMessage
         }
     }
