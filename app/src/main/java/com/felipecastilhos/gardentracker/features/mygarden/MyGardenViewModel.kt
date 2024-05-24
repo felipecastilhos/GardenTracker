@@ -1,38 +1,49 @@
 package com.felipecastilhos.gardentracker.features.mygarden
 
+import androidx.lifecycle.viewModelScope
 import com.felipecastilhos.gardentracker.core.coroutines.CoroutineContextProvider
+import com.felipecastilhos.gardentracker.core.mvi.MVI
+import com.felipecastilhos.gardentracker.core.mvi.mvi
 import com.felipecastilhos.gardentracker.core.viewmodels.BaseViewModel
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.*
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiAction.AddNewPlant
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiAction.LoadPlants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class MyGardenViewModel @Inject constructor(
-    private val dispatcherProvider: CoroutineContextProvider,
+    dispatcherProvider: CoroutineContextProvider,
 ) : BaseViewModel(
     dispatcherProvider
-) {
-    private val message: String = "My Garden"
-    private val _viewState: MutableStateFlow<String?> = MutableStateFlow("Loading")
-    val viewState: StateFlow<String?> by lazy { _viewState.asStateFlow() }
-
+), MVI<UiAction, UiState, SideEffect> by mvi(initialUiState = UiState()) {
     init {
-        getMessage()
+        onAction(LoadPlants)
     }
 
-    private fun getMessage() {
-        launchOnIO {
-            delay(800)
-            _viewState.value = message
+    override fun onAction(uiAction: UiAction) {
+        when (uiAction) {
+            LoadPlants -> loadPlants()
+            AddNewPlant -> addNewPlant()
         }
     }
 
-    fun updateMessage(newMessage: String) {
+    private fun loadPlants() {
         launchOnMain {
-            _viewState.value = newMessage
+            delay(800)
+            updateUiState { copy(isLoading = true) }
+            updateUiState { copy(isLoading = false, plants = listOf(plantName("1"))) }
         }
     }
+
+    private fun addNewPlant() =
+        updateUiState {
+            val newList = plants.toMutableList()
+            newList.add(plantName(plants.size.inc().toString()))
+            viewModelScope.emitSideEffect(SideEffect.NewPlantHasBeenAdded)
+            copy(isLoading = false, plants = newList)
+        }
+
+    private fun plantName(id: String) = "Plant $id"
 }
