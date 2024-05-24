@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.felipecastilhos.gardentracker.core.mvi.CollectSideEffect
 import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.SideEffect.NewPlantHasBeenAdded
 import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiAction
 import com.felipecastilhos.gardentracker.features.mygarden.MyGardenViewModel
@@ -36,17 +37,16 @@ class MainActivity : ComponentActivity() {
             val sideEffect = viewModel.sideEffect
             val context = LocalContext.current
 
-            LaunchedEffect(sideEffect) {
-                sideEffect.collect {
-                    when (it) {
-                        NewPlantHasBeenAdded -> Toast.makeText(
-                            context,
-                            "New Plant added",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+            CollectSideEffect(sideEffect = sideEffect) {
+                when (it) {
+                    NewPlantHasBeenAdded -> Toast.makeText(
+                        context,
+                        "New Plant added",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
+
             val uiState by viewModel.uiState.collectAsState()
 
             if (uiState.isLoading) {
