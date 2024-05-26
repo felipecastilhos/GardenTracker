@@ -1,10 +1,14 @@
 package com.felipecastilhos.gardentracker.features.mygarden
 
 interface MyGardenContract {
-    data class UiState(val isLoading: Boolean = true, val plants: List<String> = listOf())
+    sealed class UiState {
+        object Loading : UiState()
+        data class Success(val plants: List<String>) : UiState()
+        data class Error(val exception: Throwable?) : UiState()
+    }
 
     sealed interface UiAction {
-        data object LoadPlants : UiAction
+        data object ListPlants : UiAction
         data object AddNewPlant : UiAction
     }
 
@@ -12,3 +16,6 @@ interface MyGardenContract {
         data object NewPlantHasBeenAdded : SideEffect
     }
 }
+
+
+

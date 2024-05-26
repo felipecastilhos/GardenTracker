@@ -24,6 +24,13 @@ class MVIDelegate<UiAction, UiState, SideEffect> internal constructor(
     override fun updateUiState(newUiState: UiState) = _uiState.update { newUiState }
     override fun updateUiState(block: UiState.() -> UiState) = _uiState.update(block)
     override fun onAction(uiAction: UiAction) = Unit
+    override fun <T> Result<T>.toUiState(onError: () -> Unit, onSuccess: () -> Unit) {
+        if (isSuccess) {
+            onSuccess()
+        } else {
+            onError()
+        }
+    }
 }
 
 fun <UiState, UiAction, SideEffect> mvi(
