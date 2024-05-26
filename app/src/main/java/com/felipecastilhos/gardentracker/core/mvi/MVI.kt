@@ -13,4 +13,6 @@ interface MVI<UiAction, UiState, SideEffect> {
     fun updateUiState(newUiState: UiState)
 
     fun CoroutineScope.emitSideEffect(effect: SideEffect)
+
+    fun <T> Result<T>.toUiState(onError: () -> Unit, onSuccess: () -> Unit)
 }

@@ -7,43 +7,58 @@ import com.felipecastilhos.gardentracker.core.mvi.mvi
 import com.felipecastilhos.gardentracker.core.viewmodels.BaseViewModel
 import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.*
 import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiAction.AddNewPlant
-import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiAction.LoadPlants
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiAction.ListPlants
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiState.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @HiltViewModel
 class MyGardenViewModel @Inject constructor(
     dispatcherProvider: CoroutineContextProvider,
+    private val myGardenRepository: MyGardenRepository,
 ) : BaseViewModel(
     dispatcherProvider
-), MVI<UiAction, UiState, SideEffect> by mvi(initialUiState = UiState()) {
-    init {
-        onAction(LoadPlants)
-    }
+), MVI<UiAction, UiState, SideEffect> by mvi(initialUiState = Loading) {
+    private var count = 0;
 
     override fun onAction(uiAction: UiAction) {
         when (uiAction) {
-            LoadPlants -> loadPlants()
+            ListPlants -> listPlants()
             AddNewPlant -> addNewPlant()
         }
     }
 
-    private fun loadPlants() {
+    private fun listPlants() {
+        updateUiState { Loading }
         launchOnMain {
-            delay(800)
-            updateUiState { copy(isLoading = true) }
-            updateUiState { copy(isLoading = false, plants = listOf(plantName("1"))) }
+            val result = myGardenRepository.listPlants()
+            result.toUiState(onError = {
+                updateUiState {
+                    Error(result.exceptionOrNull())
+                }
+            }, onSuccess = {
+                updateUiState {
+                    Success(result.getOrThrow())
+                }
+            })
         }
     }
 
-    private fun addNewPlant() =
-        updateUiState {
-            val newList = plants.toMutableList()
-            newList.add(plantName(plants.size.inc().toString()))
-            viewModelScope.emitSideEffect(SideEffect.NewPlantHasBeenAdded)
-            copy(isLoading = false, plants = newList)
+    private fun addNewPlant() {
+        launchOnIO {
+            val result = myGardenRepository.addPlant(plantName((++count).toString()))
+            result.toUiState(
+                onError = {
+                    updateUiState {
+                        Error(result.exceptionOrNull())
+                    }
+                },
+                onSuccess = {
+                    updateUiState { Success(result.getOrThrow()) }
+                    viewModelScope.emitSideEffect(SideEffect.NewPlantHasBeenAdded)
+                })
         }
+    }
 
     private fun plantName(id: String) = "Plant $id"
 }
