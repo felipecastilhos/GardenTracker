@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.serialization)
 }
 
 android {
@@ -48,11 +49,14 @@ composeCompiler {
 dependencies {
     // Hilt Library
     implementation(libs.dagger.hilt)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.androidx.navigation.compose)
     kapt(libs.dagger.hilt.compiler)
 
     // Jetpack Compose Libraries
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.material3)
+    implementation(libs.androidx.material3.adaptive.navigation.suite.android)
 
     // Android Studio Preview support
     implementation(libs.compose.ui.tooling)
@@ -71,6 +75,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.common.ktx)
+
+    //Kotlinx
+    implementation(libs.kotlinx.serialization.json)
 
     // Unit Tests
     testImplementation(libs.junit)
