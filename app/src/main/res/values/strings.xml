@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">GardenTracker</string>
+
+    <string name="home">Home</string>
+    <string name="plants">Plants</string>
+    <string name="tools">Tools</string>
+
+
+    <string name="go_to_home">Go to Home</string>
+    <string name="go_to_my_plants">Go to my plants</string>
+    <string name="go_to_tools">Go to tools</string>
 </resources>
