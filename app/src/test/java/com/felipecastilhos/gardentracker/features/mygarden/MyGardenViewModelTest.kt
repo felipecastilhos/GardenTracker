@@ -3,9 +3,9 @@ package com.felipecastilhos.gardentracker.features.mygarden
 import app.cash.turbine.test
 import com.felipecastilhos.gardentracker.SuspendingTest
 import com.felipecastilhos.gardentracker.TestCoroutineContextProvider
-import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.*
-import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiAction.ListPlants
-import com.felipecastilhos.gardentracker.features.mygarden.MyGardenContract.UiState.Loading
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.*
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiAction.ListPlants
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiState.Loading
 import io.mockk.every
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals

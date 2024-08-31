@@ -1,4 +1,4 @@
-package com.felipecastilhos.gardentracker.features
+package com.felipecastilhos.gardentracker.features.home
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

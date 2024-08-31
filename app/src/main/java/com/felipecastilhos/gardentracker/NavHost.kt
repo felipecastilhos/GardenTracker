@@ -7,9 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.felipecastilhos.gardentracker.features.HomeScreen
-import com.felipecastilhos.gardentracker.features.MyPlantsScreen
-import com.felipecastilhos.gardentracker.features.ToolsScreen
+import com.felipecastilhos.gardentracker.features.home.HomeScreen
 import kotlinx.serialization.Serializable
 
 interface Route {
@@ -44,14 +42,6 @@ fun NavGraphBuilder.mainGraph(
     onNavigate: (Route) -> Unit,
 ) {
     composable(route = HomeScreen.Home.route) {
-        HomeScreen(modifier = modifier, onNavigate)
-    }
-
-    composable(route = HomeScreen.MyPlants.route) {
-        MyPlantsScreen(modifier = modifier, onNavigate)
-    }
-
-    composable(route = HomeScreen.Tools.route) {
-        ToolsScreen(modifier = modifier, onNavigate)
+        HomeScreen(modifier = modifier, onNavigate = onNavigate)
     }
 }

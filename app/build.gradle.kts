@@ -56,8 +56,8 @@ dependencies {
     // Jetpack Compose Libraries
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.material3)
-    implementation(libs.androidx.material3.adaptive.navigation.suite.android)
-
+    implementation(libs.material3.adaptive.navigation.suite)
+    implementation(libs.androidx.hilt.navigation.compose)
     // Android Studio Preview support
     implementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.tooling.preview)
@@ -66,7 +66,6 @@ dependencies {
 
     // Compose Tests
     androidTestImplementation(libs.compose.test.ui)
-    debugImplementation(libs.compose.test.ui.manifest)
     androidTestImplementation(platform(libs.compose.bom))
 
     // AndroidX Libraries
@@ -85,11 +84,15 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.turbine)
+    testImplementation(libs.truth)
 
     // Instrumentation Tests
+    androidTestImplementation(libs.androidx.ui.test.junit4.android)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.runner)
+    androidTestImplementation(libs.androidx.rules)
     androidTestImplementation(libs.compose.test.ui)
+    androidTestImplementation(libs.mockk)
     androidTestImplementation(platform(libs.compose.bom))
-    debugImplementation(libs.compose.test.ui.manifest)
 }
