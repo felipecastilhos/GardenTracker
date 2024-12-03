@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.felipecastilhos.gardentracker"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.felipecastilhos.gardentracker"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
