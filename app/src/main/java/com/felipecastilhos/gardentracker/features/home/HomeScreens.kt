@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
+import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScope
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,20 +60,7 @@ fun HomeScreenContent(
     NavigationSuiteScaffold(
         modifier = modifier,
         navigationSuiteItems = {
-            entries.forEach {
-                item(icon = {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = it.icon),
-                        contentDescription = stringResource(id = it.contentDescription),
-                    )
-                },
-                    label = { Text(text = stringResource(id = it.label)) },
-                    selected = it == currentDestination,
-                    onClick = {
-                        onNavigationItemClicked(it)
-                    }
-                )
-            }
+            createHomeNavigationSuiteBottomBarItems(currentDestination, onNavigationItemClicked)
         }
     ) {
         val destinationModifier = Modifier.fillMaxSize()
@@ -81,7 +70,31 @@ fun HomeScreenContent(
             TOOLS -> ToolsTabScreen(modifier = modifier, onNavigate = onNavigate)
         }
     }
+}
 
+fun NavigationSuiteScope.createHomeNavigationSuiteBottomBarItems(
+    currentDestination: HomeDestinations,
+    onNavigationItemClicked: (HomeDestinations) -> Unit
+) {
+    entries.forEach {
+        item(icon = {
+            BottomBarIcon(it.icon, it.contentDescription)
+        },
+            label = { Text(text = stringResource(id = it.label)) },
+            selected = it == currentDestination,
+            onClick = {
+                onNavigationItemClicked(it)
+            }
+        )
+    }
+}
+
+@Composable
+fun BottomBarIcon(icon: Int, contentDescription: Int) {
+    Icon(
+        imageVector = ImageVector.vectorResource(id = icon),
+        contentDescription = stringResource(id = contentDescription),
+    )
 }
 
 @Composable

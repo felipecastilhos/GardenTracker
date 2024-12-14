@@ -75,7 +75,9 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.common.ktx)
-
+    implementation(libs.androidx.adaptive)
+    implementation (libs.androidx.adaptive.layout)
+    implementation (libs.androidx.adaptive.navigation)
     //Kotlinx
     implementation(libs.kotlinx.serialization.json)
 
