@@ -21,6 +21,7 @@ import com.felipecastilhos.gardentracker.Route
 import com.felipecastilhos.gardentracker.features.home.HomeDestinations.*
 import com.felipecastilhos.gardentracker.features.home.HomeScreenContract.UiAction.*
 import com.felipecastilhos.gardentracker.features.home.HomeScreenContract.UiState.Success
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenScreen
 
 @Composable
 fun HomeScreen(
@@ -46,7 +47,6 @@ fun HomeScreen(
                 TOOLS -> homeViewModel.onAction(NavigateToTools)
             }
         },
-        onNavigate = onNavigate
     )
 }
 
@@ -55,7 +55,6 @@ fun HomeScreenContent(
     modifier: Modifier = Modifier,
     currentDestination: HomeDestinations,
     onNavigationItemClicked: (HomeDestinations) -> Unit,
-    onNavigate: (Route) -> Unit,
 ) {
     NavigationSuiteScaffold(
         modifier = modifier,
@@ -65,9 +64,9 @@ fun HomeScreenContent(
     ) {
         val destinationModifier = Modifier.fillMaxSize()
         when (currentDestination) {
-            HOME -> HomeTabScreen(modifier = destinationModifier, onNavigate = onNavigate)
-            PLANTS -> MyPlantsTabScreen(modifier = destinationModifier, onNavigate = onNavigate)
-            TOOLS -> ToolsTabScreen(modifier = modifier, onNavigate = onNavigate)
+            HOME -> HomeTabScreen(modifier = destinationModifier)
+            PLANTS -> MyGardenScreen(modifier = destinationModifier)
+            TOOLS -> ToolsTabScreen(modifier = destinationModifier)
         }
     }
 }
@@ -99,7 +98,6 @@ fun BottomBarIcon(icon: Int, contentDescription: Int) {
 
 @Composable
 fun HomeTabScreen(
-    onNavigate: (Route) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -113,7 +111,6 @@ fun HomeTabScreen(
 
 @Composable
 fun MyPlantsTabScreen(
-    onNavigate: (Route) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -127,7 +124,6 @@ fun MyPlantsTabScreen(
 
 @Composable
 fun ToolsTabScreen(
-    onNavigate: (Route) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -141,4 +137,4 @@ fun ToolsTabScreen(
 
 @Preview
 @Composable
-fun MyHomeTabScreenPreview() = HomeTabScreen(onNavigate = {})
+fun MyHomeTabScreenPreview() = HomeTabScreen()

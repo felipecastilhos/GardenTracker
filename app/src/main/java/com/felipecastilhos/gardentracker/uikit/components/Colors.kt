@@ -23,7 +23,7 @@ sealed class ColorTokens(val color: Color) {
 
     sealed class BackgroundColors {
         data object CloudWhite : ColorTokens(Color(0xFFFFFFFF))
-        data object SoftGreen : ColorTokens(Color(0xFFE8F5E9))
+        data object Desert : ColorTokens(Color(0xFFE7D6BB))
         data object LightYellow : ColorTokens(Color(0xFFFFFDE7))
     }
 

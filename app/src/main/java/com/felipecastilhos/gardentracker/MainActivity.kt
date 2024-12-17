@@ -22,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,42 +29,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navHostController: NavHostController = rememberNavController()
             MainNavGraph(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().safeDrawingPadding(),
                 navController = navHostController,
                 onNavigate = { navHostController.navigate(it.route) }
             )
         }
     }
 }
-
-@Composable
-private fun Content(onAction: (UiAction) -> Unit, uiState: MyGardenUiContract.UiState) {
-    when (uiState) {
-        is Success -> {
-            val state = uiState
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                state.plants.forEach {
-                    PlantName(it)
-                }
-                Spacer(modifier = Modifier.height(15.dp))
-                Button(onClick = { onAction(AddNewPlant) }) {
-                    Text(text = "Update")
-                }
-            }
-        }
-
-        is Error -> Text(text = "Error")
-        Loading -> Text(text = "Loading")
-    }
-}
-
-@Composable
-fun PlantName(name: String) = Text(text = name)
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingsPreview() = PlantName("My Garden")

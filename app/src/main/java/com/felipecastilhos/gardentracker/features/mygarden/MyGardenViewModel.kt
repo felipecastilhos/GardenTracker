@@ -5,10 +5,14 @@ import com.felipecastilhos.gardentracker.core.coroutines.CoroutineContextProvide
 import com.felipecastilhos.gardentracker.core.mvi.MVI
 import com.felipecastilhos.gardentracker.core.mvi.mvi
 import com.felipecastilhos.gardentracker.core.viewmodels.BaseViewModel
-import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.*
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.SideEffect
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiAction
 import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiAction.AddNewPlant
 import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiAction.ListPlants
-import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiState.*
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiState
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiState.Error
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiState.Loading
+import com.felipecastilhos.gardentracker.features.mygarden.MyGardenUiContract.UiState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
